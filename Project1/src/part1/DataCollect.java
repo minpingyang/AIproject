@@ -23,15 +23,16 @@ public class DataCollect {
 		File trainFile = new File(currentPath + "ass1-data/ass1-data/part1/iris-training.txt");
 		List<List<String>> testValues = new ArrayList<>();
 		testValues = readFile(testFile);
-		
-		// for(int row=0;row<testValues.size();row++) {
-		// for(int col=0;col<testValues.get(0).size();col++) {
-		// System.out.println(testValues.get(row).get(col));
-		// }
-		// }
-		for (int col = 0; col < testValues.get(0).size(); col++) {
-			System.out.println(testValues.get(0).get(col));
+		System.out.println("1111:"+testValues.size());
+		for (int row = 0;!testValues.get(row).isEmpty() ; row++) {
+			for (int col = 0; col < testValues.get(0).size(); col++) {
+				System.out.println("row:"+row+"   col:"+col);
+				System.out.println(testValues.get(row).get(col));
+			}
 		}
+		// for (int col = 0; col < testValues.get(0).size(); col++) {
+		// System.out.println(testValues.get(0).get(col));
+		// }
 	}
 
 	public List<List<String>> readFile(File fname) {
@@ -49,11 +50,11 @@ public class DataCollect {
 			while ((sCurrentLine = bfreader.readLine()) != null) {
 				for (String string : sCurrentLine.split(" ")) {
 					table.add(new ArrayList<>());
-				
-					if(!string.isEmpty()) {
+
+					if (!string.isEmpty()) {
 						table.get(row).add(string);
-						System.out.println("row: "+row+"string:"+string);
-					}		
+//						System.out.println("row: " + row + "string:" + string);
+					}
 				}
 				row++;
 			}
