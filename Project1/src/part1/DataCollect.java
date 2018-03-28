@@ -1,6 +1,6 @@
 package part1;
 
-import java.awt.print.Printable;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -8,12 +8,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.omg.CosNaming.NamingContextExtPackage.AddressHelper;
+
 
 public class DataCollect {
-	private int a1 = 0, a2 = 0, a3 = 0, a4 = 0;
-	private int b1 = 0, b2 = 0, b3 = 0, b4 = 0;
-	private List<Integer> r = new ArrayList<Integer>();
+	
+	private List<Double> tr0=new ArrayList<>();
+	private List<Double> tr1=new ArrayList<>();
+	private List<Double> tr2=new ArrayList<>();
+	private List<Double> tr3=new ArrayList<>();
+	private List<Double> te0=new ArrayList<>();
+	private List<Double> te1=new ArrayList<>();
+	private List<Double> te2=new ArrayList<>();
+	private List<Double> te3=new ArrayList<>();
+	private List<String> trainType=new ArrayList<>();
+	private List<String> testType=new ArrayList<>();
+	private List<Double> r = new ArrayList<Double>();
 
 	public void loadFile() {
 		File directory = new File("./");
@@ -21,20 +30,46 @@ public class DataCollect {
 		currentPath = currentPath.substring(0, currentPath.length() - 1);
 		File testFile = new File(currentPath + "ass1-data/ass1-data/part1/iris-test.txt");
 		File trainFile = new File(currentPath + "ass1-data/ass1-data/part1/iris-training.txt");
-		List<List<String>> testValues = new ArrayList<>();
-		testValues = readFile(testFile);
-		System.out.println("1111:"+testValues.size());
+		analyse(readFile(testFile),false);
+		analyse(readFile(trainFile),true);
+		test(tr0);
+//		test(te3);
+		
+		
+	}
+	public void test(List<Double> t) {
+		for (int i = 0; i < t.size(); i++) {
+			System.out.println(t.get(i));
+		}
+	}
+	public void analyse(List<List<String>> testValues,boolean forTrain) {
 		for (int row = 0;!testValues.get(row).isEmpty() ; row++) {
 			for (int col = 0; col < testValues.get(0).size(); col++) {
-				System.out.println("row:"+row+"   col:"+col);
-				System.out.println(testValues.get(row).get(col));
+				if(forTrain) {
+					switch (col) {
+					case 0:
+						tr0.add(Double.parseDouble(testValues.get(row).get(col)));
+						break;
+					case 1:
+						tr1.add(Double.parseDouble(testValues.get(row).get(col)));
+						break;
+					case 2:
+						tr2.add(Double.parseDouble(testValues.get(row).get(col)));
+						break;
+					case 3:
+						tr3.add(Double.parseDouble(testValues.get(row).get(col)));
+						break;
+					case 4:
+						trainType.add(testValues.get(row).get(col));
+						break;
+					default:
+						break;
+					}
+				}
+				
 			}
 		}
-		// for (int col = 0; col < testValues.get(0).size(); col++) {
-		// System.out.println(testValues.get(0).get(col));
-		// }
 	}
-
 	public List<List<String>> readFile(File fname) {
 		BufferedReader bfreader = null;
 		FileReader fReader = null;
