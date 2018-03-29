@@ -48,6 +48,9 @@ public class DataCollect {
 		teCols.add(te2);
 		teCols.add(te3);
 	}
+	/**
+	 * load data from test.txt and training.txt
+	 * */
 	public void loadFile() {
 		File directory = new File("./");
 		String currentPath = directory.getAbsolutePath();
@@ -59,15 +62,16 @@ public class DataCollect {
 		
 		
 	}
+	/**
+	 * Find range r for each column 
+	 * **/
 	public double findRange(List<Double> tlist) {
 		return Collections.max(tlist)-Collections.min(tlist);
 		
 	}
-//	public void test(List<Double> t) {
-//		for (int i = 0; i < t.size(); i++) {
-//			System.out.println(t.get(i));
-//		}
-//	}
+	/**
+	 * store different column of data into different list
+	 * **/
 	public void analyse(List<List<String>> testValues,boolean forTrain) {
 		for (int row = 0;!testValues.get(row).isEmpty() ; row++) {
 			for (int col = 0; col < testValues.get(0).size(); col++) {
@@ -116,6 +120,9 @@ public class DataCollect {
 			}
 		}
 	}
+	/**
+	 * Read data from text files
+	 * **/
 	public List<List<String>> readFile(File fname) {
 		BufferedReader bfreader = null;
 		FileReader fReader = null;

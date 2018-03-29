@@ -2,7 +2,7 @@ package part1;
 
 
 
-public class nestedNe {
+public class Main {
 
 	public static void main(String[] args) {
 		DataCollect dataCollect=new DataCollect();

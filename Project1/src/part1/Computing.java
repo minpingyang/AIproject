@@ -8,10 +8,12 @@ import java.util.Map;
 
 public class Computing {
 	private List<Double> distance = new ArrayList<>();
-	private int k=1;
+	private int k=3;
 	private List<String> estimateTypes= new ArrayList<>();
-	
-	
+
+	/*
+	 * run k times for find distance from each test instance to training data
+	 * **/
 	public Computing(List<List<Double>> teCols, List<List<Double>>trCols,List<Double> r,List<String> trainType,List<String> testType) {
 		for(int i=1;i<11;i++) {
 			k=i;
@@ -20,11 +22,15 @@ public class Computing {
 				findDistance(teCols, trCols, r,trainType,row);
 			}
 			computingCorrectRate(testType);
+			
 			System.out.println("k= "+k+" The correct rate of estimating is "+computingCorrectRate(testType));
 		}
-		
-
+			
+			
 	}
+	/*
+	 * find all distances from one test instance to all training data
+	 * **/
 	public void findDistance(List<List<Double>> teCols, List<List<Double>>trCols,List<Double> r,List<String> trainType,int rowTest) {
 		distance = new ArrayList<>();
 		for(int row=0;row<trCols.get(0).size();row++) {	
@@ -59,9 +65,14 @@ public class Computing {
 		for(int i=0;i<k;i++) {
 			typeNames.add(disToType.get(distance.get(i)));
 		}
+//		System.out.println(mostNearest(typeNames));
 		estimateTypes.add(mostNearest(typeNames));
 		
+		
 	}
+	/*
+	 * computing the accuracy
+	 * **/
 	public double computingCorrectRate(List<String> testTypes) {
 		double wrongEst=0;
 		for(int col=0;col<estimateTypes.size();col++) {
@@ -74,7 +85,9 @@ public class Computing {
 //		System.out.println(failRate);
 		return 1 - failRate;
 	}
-	
+	/*
+	 * find the most nearest node 
+	 * */
 	public String mostNearest(List<String> typeNames) {
 		Map<String,Integer> countTypes= new HashMap<>();
 		countTypes.put("Iris-setosa", 0);
